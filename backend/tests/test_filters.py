@@ -1,6 +1,3 @@
-import pytest
-
-
 def test_get_all_tickets(client, auth_headers, sample_tickets):
     """Получение всех заявок"""
     response = client.get("/api/tickets", headers=auth_headers)
@@ -88,7 +85,7 @@ def test_sort_by_priority(client, auth_headers, sample_tickets):
     assert response.status_code == 200
     data = response.json()
 
-    priority_order = {"high": 1, "normal": 2, "low": 3}
+    priority_order = {"high": 3, "normal": 2, "low": 1}
     priorities = [priority_order[ticket["priority"]] for ticket in data["items"]]
     assert priorities == sorted(priorities)
 

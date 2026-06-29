@@ -1,6 +1,3 @@
-import pytest
-
-
 def test_login_success(client):
     """Успешная аутентификация"""
     response = client.post("/api/auth/login", json={"username": "admin", "password": "admin"})

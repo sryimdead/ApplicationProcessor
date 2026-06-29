@@ -1,6 +1,3 @@
-import pytest
-
-
 def test_create_ticket(client, auth_headers):
     """Создание заявки"""
     ticket_data = {"title": "Тестовая заявка", "description": "Описание тестовой заявки", "priority": "normal"}

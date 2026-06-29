@@ -1,11 +1,12 @@
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from contextlib import asynccontextmanager
-from app.config import settings
-from app.database import engine, Base
+
 from app.api.router import api_router
+from app.config import settings
+from app.database import Base, SessionLocal, engine
 from app.repositories.user_repository import UserRepository
-from app.database import SessionLocal
 
 
 @asynccontextmanager
@@ -16,10 +17,7 @@ async def lifespan(app: FastAPI):
     try:
         user_repo = UserRepository(db)
         # Создаем админа
-        user_repo.create_admin_if_not_exists(
-            settings.ADMIN_USERNAME,
-            settings.ADMIN_PASSWORD
-        )
+        user_repo.create_admin_if_not_exists(settings.ADMIN_USERNAME, settings.ADMIN_PASSWORD)
         # Создаем обычного пользователя
         user_repo.create_user_if_not_exists("user", "user", is_admin=False)
     finally:
@@ -32,7 +30,7 @@ app = FastAPI(
     title=settings.PROJECT_NAME,
     version=settings.VERSION,
     openapi_url=f"{settings.API_V1_STR}/openapi.json",
-    lifespan=lifespan
+    lifespan=lifespan,
 )
 
 app.add_middleware(
