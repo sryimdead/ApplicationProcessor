@@ -1,0 +1,25 @@
+[MASTER]
+ignore-patterns=^.*\.py[cod]$
+init-hook='import sys; sys.path.insert(0, ".")'
+use-parentheses=yes
+
+[MESSAGES CONTROL]
+disable=
+    C0114,  # missing-module-docstring
+    C0115,  # missing-class-docstring
+    C0116,  # missing-function-docstring
+    R0903,  # too-few-public-methods
+    C0301,  # line-too-long (handled by black)
+    R0801,  # duplicate-code
+    W0511   # fixme
+
+[FORMAT]
+max-line-length=120
+indent-string='    '
+
+[DESIGN]
+max-args=10
+max-locals=20
+
+[BASIC]
+good-names=i,j,k,e,ex,run,_,id,db
